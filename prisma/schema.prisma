@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model BoardItem {
+  id        String   @id @default(cuid())
+  type      String   // "photo" or "text"
+  // Photo fields
+  filename  String?
+  filepath  String?
+  thumbnail String?
+  mimeType  String?
+  size      Int?
+  // Text fields
+  content   String?
+  // Position on canvas
+  posX      Float    @default(0)
+  posY      Float    @default(0)
+  rotation  Float    @default(0)
+  // AI roast
+  roast     String?
+  // Order for z-index stacking
+  zIndex    Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
